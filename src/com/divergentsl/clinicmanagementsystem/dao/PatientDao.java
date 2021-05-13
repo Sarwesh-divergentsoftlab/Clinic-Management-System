@@ -16,26 +16,21 @@ IDatabaseManager databaseManager;
 	public PatientDao(IDatabaseManager databaseManager) {
 	this.databaseManager=databaseManager;	
 	}
-	public void insertPatient(String name,String patient_age,String weight,String problem,String app_date,String contact)throws SQLException
+	public int insertPatient(String name,String patient_age,String pId,String weight,String problem,String app_date,String contact)throws SQLException
 		{
-		Connection connection=null;
-		Statement st = connection.createStatement();
+		Connection connection=databaseManager.getConnection();
 		PreparedStatement statement;
 	
-		String sql="INSERT INTO patient (name,age,weight,problem,app_date,contact) "+" VALUES(?,?,?,?,?,?)";
+		String sql="INSERT INTO patient (name,age,patient_id,weight,problem,app_date,contact) "+" VALUES(?,?,?,?,?,?,?)";
 		statement =connection.prepareStatement(sql);
 		statement.setString(1,name);
 		statement.setString(2,patient_age);
-		statement.setString(3,weight);
-		statement.setString(4,problem);
-		statement.setString(5,app_date);
-		statement.setString(6,contact);
-		int rowinsert= statement.executeUpdate();
-		
-		if(rowinsert>0)
-		{
-			System.out.println("new patient information added");
-		}
+		statement.setString(3,pId);
+		statement.setString(4,weight);
+		statement.setString(5,problem);
+		statement.setString(6,app_date);
+		statement.setString(7,contact);
+		return statement.executeUpdate();
 		}
 
 	public ResultSet showPatient() throws SQLException

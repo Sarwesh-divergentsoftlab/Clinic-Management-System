@@ -1,13 +1,8 @@
 package com.divergentsl.clinicmanagementsystem;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Scanner;
 
-import com.divergentsl.clinicmanagementsystem.dao.DrugDao;
 import com.divergentsl.clinicmanagementsystem.dao.PatientDao;
 
 public class CRUDpatient {
@@ -22,15 +17,17 @@ public class CRUDpatient {
 		System.out.println("press 2 : to see all patient list");
 		System.out.println("press 3 : to update patient");
 		System.out.println("press 4 : to delete patient");
-		int pchoice=sc.nextInt() ;
+		String pchoice=sc.next() ;
 			
 			switch(pchoice)
 			{
-			case 1: //create patient
+			case "1": //create patient
 					System.out.println("enter patient name");
 					String name = sc.next();
 					System.out.println("enter patient age");
 					String patient_age= sc.next();
+					System.out.println("enter patient id");
+					String patient_id= sc.next();
 					System.out.println("enter patient weight");
 					String weight=sc.next();
 					System.out.println("enter patient problem");
@@ -40,21 +37,24 @@ public class CRUDpatient {
 					System.out.println("enter patient contact number");
 					String contact=sc.next();
 					PatientDao patientDao= new PatientDao(new DatabaseManager());
-					patientDao.insertPatient(name, patient_age, weight, problem, app_date, contact);
+					int r=patientDao.insertPatient(name, patient_age,patient_id, weight, problem, app_date, contact);
+					if(r!=0)System.out.print("information added\n");
+					patientDao();
 					break;
 			
 			
-			case 2: //retrive patient
+			case "2": //retrive patient
 					patientDao= new PatientDao(new DatabaseManager());
 					ResultSet rsretrive =patientDao.showPatient();
 					while(rsretrive.next())
 					{
-						System.out.println(rsretrive.getString(1)+" "+rsretrive.getString(2)+" "+rsretrive.getString(3)+" "+rsretrive.getString(4)+" "+rsretrive.getString(5));
+						System.out.println(rsretrive.getString(1)+" "+rsretrive.getString(2)+" "+rsretrive.getString(3)+" "+rsretrive.getString(4)+" "+rsretrive.getString(5)+"\n");
 					}
+					patientDao();
 					break;
 					
 			
-			case 3: //update patient
+			case "3": //update patient
 					System.out.println("enter patient id");
 					String id=sc.next();
 					System.out.println("enter choice");
@@ -63,62 +63,67 @@ public class CRUDpatient {
 					System.out.println("press 3 : to update weight");
 					System.out.println("press 4 : to update problem");
 					System.out.println("press 5 : to update Application date");
-					int n=sc.nextInt();
-					String sqlupdate=" ";
+					String n=sc.next();
 						switch(n)
 						{
-						case 1:
-							sqlupdate = "UPDATE patient SET name=? WHERE patient_id=? ";
+						case "1":
+							
 							System.out.println("enter updated name");
 							String pname=sc.next();
 							patientDao= new PatientDao(new DatabaseManager());
 							int rowupdatename=patientDao.updateName(pname, id);
-							if(rowupdatename>0) System.out.print("information updated");
+							if(rowupdatename>0) System.out.print("information updated\n");
+							patientDao();
 							break;
 						
-						case 2:
-							sqlupdate = "UPDATE patient SET age=? WHERE patient_id=? ";
+						case "2":
+					
 							System.out.println("enter updated age");
 							String page=sc.next();
 							patientDao= new PatientDao(new DatabaseManager());
 							int rowupdatespec=patientDao.updateAge(page, id);
-							if(rowupdatespec>0) System.out.print("information updated");
+							if(rowupdatespec>0) System.out.print("information updated\n");
+							patientDao();
 							break;
 						
-						case 3:
-							sqlupdate = "UPDATE patient SET weight=? WHERE patient_id=? ";
+						case "3":
+							
 							System.out.println("enter updated weight");
 							String pweight=sc.next();
 							patientDao= new PatientDao(new DatabaseManager());
 							int rowupdatefees=patientDao.updateAge(pweight, id);
-							if(rowupdatefees>0) System.out.print("information updated");
+							if(rowupdatefees>0) System.out.print("information updated\n");
+							patientDao();
 							break;
 						
-						case 4:
-							sqlupdate = "UPDATE doctor SET problem=? WHERE patient_id=? ";
+						case "4":
+							
 							System.out.println("enter new problem");
 							String pproblem=sc.next();
 							patientDao= new PatientDao(new DatabaseManager());
 							int rowupdatedegree=patientDao.updateProblem(pproblem, id);
-							if(rowupdatedegree>0) System.out.print("information updated");
+							if(rowupdatedegree>0) System.out.print("information updated\n");
+							patientDao();
 							break;
 						
-						case 5:	
-							sqlupdate = "UPDATE patient SET app_date=? WHERE patient_id=? ";
+						case "5":	
+							
 							System.out.println("enter updated Application date");
 							String pdate=sc.next();
 							patientDao= new PatientDao(new DatabaseManager());
 							int rowupdate=patientDao.updateAppDate(pdate, id);
-							if(rowupdate>0) System.out.print("information updated");
+							if(rowupdate>0) System.out.print("information updated\n");
+							patientDao();
 							break;
 						
-						case 6:	
-							sqlupdate = "UPDATE patient SET app_date=? WHERE patient_id=? ";
+						case "6":	
+							
 							System.out.println("enter updated contact number");
 							String contactc=sc.next();
 							patientDao= new PatientDao(new DatabaseManager());
 							int rowupdatec=patientDao.updateAppDate(contactc, id);
-							if(rowupdatec>0) System.out.print("information updated");
+							if(rowupdatec>0) System.out.print("information updated\n");
+							patientDao();
 							break;
 						
 						default:
@@ -129,17 +134,21 @@ public class CRUDpatient {
 					
 					break;
 					
-			case 4://delete patient
+			case "4"://delete patient
 				System.out.println("Enter patient id");
 				String idp=sc.next();
 				patientDao= new PatientDao(new DatabaseManager());
 				int i=patientDao.deletePatient(idp);
 				if(i==0) System.out.print("patient not found");
+				else {
+					System.out.print("patient information deleted\n");
+					patientDao();
+				}
 				break;
 			default:
 				System.out.print("Enter Valid choice");
 			}
 
-	
+	sc.close();
 	}
 }

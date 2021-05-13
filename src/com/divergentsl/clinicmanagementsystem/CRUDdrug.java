@@ -1,10 +1,6 @@
 package com.divergentsl.clinicmanagementsystem;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Scanner;
 
 import com.divergentsl.clinicmanagementsystem.dao.DrugDao;
@@ -13,12 +9,8 @@ public class CRUDdrug {
 
 	 	public static void drugDao() throws Exception
 	 	{
-		  Scanner sc= new Scanner (System.in);
-		  Connection connection=DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/clinicmanagement",
-					"root","root");
-			Statement st = connection.createStatement();
-			PreparedStatement statement;
+
+			Scanner sc=new Scanner (System.in);
 			System.out.println("Enter your choice");
 			System.out.println("press 1 : to add drug");
 			System.out.println("press 2 : to see all drug list");
@@ -62,7 +54,6 @@ public class CRUDdrug {
 						System.out.println("press 2 : to update drug price");
 						
 						String n=sc.next();
-						String sqlupdate=" ";
 							switch(n)
 							{
 							case "1":
@@ -95,7 +86,7 @@ public class CRUDdrug {
 					System.out.print("Enter Valid choice");
 				}
 	
-				
+			sc.close();	
 				
 	 }
 }

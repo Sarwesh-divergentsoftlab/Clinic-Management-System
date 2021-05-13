@@ -1,10 +1,6 @@
 package com.divergentsl.clinicmanagementsystem;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Scanner;
 
 import com.divergentsl.clinicmanagementsystem.dao.LabtestDao;
@@ -13,22 +9,16 @@ public class CRUDlabtest {
 	public static void labtestDao()throws Exception
 	{
 
-		  Scanner sc= new Scanner (System.in);
-		  Connection connection=DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/clinicmanagement",
-					"root","root");
-			Statement st = connection.createStatement();
-			PreparedStatement statement;
-	
+	Scanner sc= new Scanner(System.in);	
 	System.out.println("Enter your choice");
 	System.out.println("press 1 : to add lab test details");
 	System.out.println("press 2 : to see all lab test list");
 	System.out.println("press 3 : to update test");
-	int lchoice=sc.nextInt() ;
+	String lchoice=sc.next();
 		
 		switch(lchoice)
 		{
-		case 1: //labtest
+		case "1": //labtest
 				System.out.println("enter labtest name");
 				String name = sc.next();
 				System.out.println("enter labtest id");
@@ -47,7 +37,7 @@ public class CRUDlabtest {
 				break;
 		
 		
-		case 2: //retrive labtest
+		case "2": //retrive labtest
 				labtestDao= new LabtestDao(new DatabaseManager());
 				ResultSet rsretrive =labtestDao.showLabtest();
 				while(rsretrive.next())
@@ -57,18 +47,17 @@ public class CRUDlabtest {
 				break;
 				
 		
-		case 3: //update price
+		case "3": //update price
 				System.out.println("enter labtest Id to update details");
 				String id=sc.next();
 				System.out.println("enter choice");
 				System.out.println("press 1 : to update name");
 				System.out.println("press 2 : to update labtest price");
 				
-				int n=sc.nextInt();
-				String sqlupdate=" ";
+				String n=sc.next();
 					switch(n)
 					{
-					case 1:
+					case "1":
 						
 						System.out.println("enter updated name");
 						String labname=sc.next();
@@ -77,7 +66,7 @@ public class CRUDlabtest {
 						if(rowupdatename>0) System.out.print("information updated");
 						break;
 					
-					case 2:
+					case "2":
 						System.out.println("enter updated drug price");
 						String price=sc.next();
 						labtestDao= new LabtestDao(new DatabaseManager());
@@ -89,5 +78,6 @@ public class CRUDlabtest {
 						System.out.println("Enter Valid choice");
 					}	
 			}
+	sc.close();
 	}
 }

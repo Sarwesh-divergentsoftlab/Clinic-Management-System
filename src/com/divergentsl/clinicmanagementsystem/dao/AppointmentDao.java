@@ -1,7 +1,6 @@
 package com.divergentsl.clinicmanagementsystem.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,7 +29,6 @@ IDatabaseManager databaseManager;
 	public int addPrescription(String pid,String pres) throws SQLException
 	{
 		Connection connection=databaseManager.getConnection();
-		Statement st = connection.createStatement();
 		PreparedStatement statement;
 		String sql="update patient SET prescription=? where patient_id='"+pid+"'";
 		statement =connection.prepareStatement(sql);

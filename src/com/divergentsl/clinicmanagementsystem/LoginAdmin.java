@@ -1,12 +1,9 @@
 package com.divergentsl.clinicmanagementsystem;
-
-import java.io.Console;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
+
+import com.divergentsl.clinicmanagementsystem.dao.LoginDao;
 
 public class LoginAdmin {
 
@@ -18,12 +15,9 @@ public class LoginAdmin {
 		//		System.err.print("c is null");
 			Scanner sc= new Scanner (System.in);
 			
-			Connection connection=DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/clinicmanagement",
-					"root","root");
-			String sqlst="Select * from login_admin";
-			Statement statement=connection.createStatement();
-			ResultSet rs= statement.executeQuery(sqlst);
+			
+			LoginDao ado=new LoginDao(new DatabaseManager());
+			ResultSet rs= ado.adminLogin();
 			 
 			System.out.println("Enter your user name: ");  
 		     String user=sc.next(); 
@@ -49,6 +43,7 @@ public class LoginAdmin {
 				
 				checkAdmin();
 			}
+		sc.close();
 		}
 		catch(SQLException ex)
 			{

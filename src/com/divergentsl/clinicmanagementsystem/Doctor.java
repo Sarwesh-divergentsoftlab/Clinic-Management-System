@@ -18,35 +18,36 @@ public class Doctor {
 		    System.out.println("5. Create Invoice of patient");
 		    System.out.println("6. Logout");
 		    System.out.println("	Enter Your Choice: \n");
-		    int choice=sc.nextInt();
+		    String choice=sc.next();
 		    switch(choice)
 		    {
-		    case 1:
+		    case "1":
 		    	Appointment.listPatient(dname);
 		    	break;
 		    
-		    case 2:
+		    case "2":
 		    	Appointment.addPrescription();
 		    	break;
-		    case 3:
+		    case "3":
 		    	Appointment.assignedAppointment(dname);
 		    	break;
-		    case 4:
+		    case "4":
 		    	Appointment.patientHistory();
 		    	break;
-		    case 5:
+		    case "5":
 		    	Appointment.generateInvoice();
 		    	break;
-		    case 6:
+		    case "6":
 		    	
 		    	System.out.println("\nlogout successful\n");
 		    	LoginDoctor.checkDoctor();
 		    	break;
 		    	
 		    default:
-		    	System.out.print("enter valid input");
+		    	System.out.print("enter valid input\n");
 		    	doctorPanel(dname);
 		    }
+	sc.close();
 	} 
 
 }

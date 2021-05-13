@@ -1,11 +1,8 @@
 package com.divergentsl.clinicmanagementsystem;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
 
 import com.divergentsl.clinicmanagementsystem.dao.AppointmentDao;
@@ -24,7 +21,7 @@ public class Appointment  {
 			{
 				System.out.println(rsretrive.getString(1)+" "+rsretrive.getString(2)+" "+rsretrive.getString(3)+" "+rsretrive.getString(4)+" "+rsretrive.getString(5));
 			}
-			
+			sc.close();
 		
 	}
 	
@@ -39,6 +36,7 @@ public class Appointment  {
 			{
 				System.out.println(rsretrive.getString(1)+" "+rsretrive.getString(2)+" "+rsretrive.getString(3)+" "+rsretrive.getString(4)+" "+rsretrive.getString(5));
 			}
+			sc.close();
 	}
 	
 	public static void addPrescription() throws SQLException
@@ -56,6 +54,7 @@ public class Appointment  {
 		{
 			System.out.println("prescription added");
 		}
+		sc.close();
 	}
 	
 	public static void patientHistory()throws SQLException
@@ -71,6 +70,7 @@ public class Appointment  {
 			{
 				System.out.println(rsretrive.getString(1)+" "+rsretrive.getString(2)+" "+rsretrive.getString(3)+" "+rsretrive.getString(4)+" "+rsretrive.getString(5)+" "+rsretrive.getString(6)+" "+rsretrive.getString(7)+" "+rsretrive.getString(8)+" "+rsretrive.getString(9));
 			}
+			sc.close();
 	}
 	
 	public static void addAppointment()
@@ -96,12 +96,13 @@ public class Appointment  {
 		{
 			System.out.println("Appointment added");
 		}
-	
+		sc.close();
 		}catch(SQLException se)
 		{
 			System.out.println("please enter unique appointment id");
 			addAppointment();
 		}
+		
 		}
 		public static void generateInvoice()throws SQLException
 		{
