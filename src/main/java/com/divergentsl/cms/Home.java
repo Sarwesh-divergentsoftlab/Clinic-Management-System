@@ -1,13 +1,21 @@
-package com.divergentsl.clinicmanagementsystem;
+package com.divergentsl.cms;
 
 import java.util.Scanner;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Home {
+	@Autowired
+	AnnotationConfigApplicationContext context;
+	@Autowired
+	LoginDoctor ldo;
+	@Autowired
+	LoginAdmin lao;
+	@Autowired
+	Doctor d;
 		public void home()throws Exception
 		{
 			System.out.println("-----Welcome to clinic management system-----");
@@ -15,12 +23,8 @@ public class Home {
 			System.out.println("press 1 : Admin");
 			System.out.println("Press 2 : Doctor");
 			String n =sc.next();
-			ApplicationContext context = new AnnotationConfigApplicationContext(JavaConfig.class);
 			
 			
-			LoginDoctor ldo=context.getBean(LoginDoctor.class);
-			LoginAdmin lao= context.getBean(LoginAdmin.class);
-			Doctor d=new Doctor();
 			
 			switch(n)
 			{

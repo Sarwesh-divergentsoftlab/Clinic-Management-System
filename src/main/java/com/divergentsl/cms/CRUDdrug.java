@@ -1,4 +1,4 @@
-package com.divergentsl.clinicmanagementsystem;
+package com.divergentsl.cms;
 
 import java.sql.ResultSet;
 import java.util.Scanner;
@@ -6,7 +6,9 @@ import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.divergentsl.clinicmanagementsystem.dao.DrugDao;
+import com.divergentsl.cms.dao.DrugDao;
+
+
 
 @Component
 public class CRUDdrug {

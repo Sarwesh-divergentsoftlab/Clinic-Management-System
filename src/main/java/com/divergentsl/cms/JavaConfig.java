@@ -1,4 +1,4 @@
-package com.divergentsl.clinicmanagementsystem;
+package com.divergentsl.cms;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -6,17 +6,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 
 @Configuration
-@ComponentScan(basePackages = {"com.divergentsl.clinicmanagementsystem","com.divergentsl.clinicmanagementsystem.dao"})
+@ComponentScan(basePackages = {"com.divergentsl.cms"})
 //@Profile("dev")
-@PropertySource("classpath:/app.properties")
-//@EnableAspectJAutoProxy
+@PropertySource("classpath:/application.properties")
+@EnableAspectJAutoProxy
 
 public class JavaConfig 
 {

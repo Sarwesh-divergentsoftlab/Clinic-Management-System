@@ -1,14 +1,22 @@
-package com.divergentsl.clinicmanagementsystem;
+package com.divergentsl.cms;
 
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Doctor {
+		
+	@Autowired	
+	  ApplicationContext context;
+	@Autowired  
+	LoginDoctor ldo;
+	    
+	@Autowired
+	Appointment appointment;
 
 	public void doctorPanel(String dname) throws SQLException {
 		
@@ -24,25 +32,25 @@ public class Doctor {
 		    System.out.println("6. Logout");
 		    System.out.println("	Enter Your Choice: \n");
 		    String choice=sc.next();
-		    ApplicationContext context= new AnnotationConfigApplicationContext(JavaConfig.class);
-		    LoginDoctor ldo=context.getBean(LoginDoctor.class);
+		  
+		  
 		    switch(choice)
 		    {
 		    case "1":
-		    	Appointment.listPatient(dname);
+		    	appointment.listPatient(dname);
 		    	break;
 		    
 		    case "2":
-		    	Appointment.addPrescription();
+		    	appointment.addPrescription();
 		    	break;
 		    case "3":
-		    	Appointment.assignedAppointment(dname);
+		    	appointment.assignedAppointment(dname);
 		    	break;
 		    case "4":
-		    	Appointment.patientHistory();
+		    	appointment.patientHistory();
 		    	break;
 		    case "5":
-		    	Appointment.generateInvoice();
+		    	appointment.generateInvoice();
 		    	break;
 		    case "6":
 		    	

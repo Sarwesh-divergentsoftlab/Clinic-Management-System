@@ -1,44 +1,45 @@
-package com.divergentsl.clinicmanagementsystem;
+package com.divergentsl.cms;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import javax.naming.Context;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.divergentsl.clinicmanagementsystem.dao.LoginDao;
+import com.divergentsl.cms.dao.LoginDao;
+
 
 
 @Component
 public class LoginDoctor {
+	@Autowired
+	LoginDao ldo;
 	public String checkDoctor()
 	{
 
 		try {
 			Scanner sc= new Scanner(System.in);
-			LoginDao ldo = new LoginDao(new DatabaseManager());
-			ResultSet rs= ldo.doctorLogin();
+			
+			
 			 
 			System.out.println("Enter your user name: ");  
 		     String user=sc.next(); 
 		    System.out.println("enter password"); 
 		     String pass = sc.next();
-			String userName=" ";
-			String password=" ";	
-			
-			while(rs.next())
-			{
-				 userName=rs.getString(1);		//1st coloumn in database
-				 password = rs.getString(2);		//2nd coloumn in database
+		     boolean flag= ldo.doctorLogin(user,pass);
 				
-				if(user.equals(userName) && pass.equals(password))
+				if(flag)
 				{
 					System.out.print("Login successful");
-					return userName;
+					return user;
 				
 					
 				}
-			}
 		}
 		catch(SQLException ex)
 			{

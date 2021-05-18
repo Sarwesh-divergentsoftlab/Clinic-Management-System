@@ -1,18 +1,35 @@
-package com.divergentsl.clinicmanagementsystem;
+package com.divergentsl.cms;
 
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class Admin {
+	
+	@Autowired
+	CRUDdoctor doctor;
+	
+	@Autowired
+	CRUDdrug drug;
+	
+	@Autowired 
+	CRUDlabtest labtest;
+	
+	@Autowired
+	CRUDpatient patient;
+	
+	@Autowired
+	LoginAdmin login;
+	
+	@Autowired
+	Appointment apoint;
+	
 
-	public static void adminPanel() throws Exception {
+	public void adminPanel() throws Exception {
 		Scanner sc= new Scanner(System.in);
 		try {
 			System.out.println("welcome to admin panel");
@@ -24,31 +41,31 @@ public class Admin {
 		System.out.println("press 5 : make appointment");
 		System.out.println("press 6 : logout");
 		String c=sc.next();
-		ApplicationContext context = new AnnotationConfigApplicationContext(JavaConfig.class);
-		CRUDdoctor d = context.getBean(CRUDdoctor.class);
-		CRUDpatient p = context.getBean(CRUDpatient.class);
-		CRUDdrug r = context.getBean(CRUDdrug.class);
-		CRUDlabtest l = context.getBean(CRUDlabtest.class);
-		LoginAdmin login = context.getBean(LoginAdmin.class);
-		Appointment apoint = context.getBean(Appointment.class);
+//		ApplicationContext context = new AnnotationConfigApplicationContext(JavaConfig.class);
+//		CRUDdoctor d = context.getBean(CRUDdoctor.class);
+//		CRUDpatient p = context.getBean(CRUDpatient.class);
+//		CRUDdrug r = context.getBean(CRUDdrug.class);
+//		CRUDlabtest l = context.getBean(CRUDlabtest.class);
+//		LoginAdmin login = context.getBean(LoginAdmin.class);
+//		Appointment apoint = context.getBean(Appointment.class);
 		
 		switch(c)
 		{
 				case "1"://doctor manager
 				 // CRUDdoctor.doctorDao();
-				  d.doctorDao();
+				  doctor.doctorDao();
 				  break;
 					
 					
 					
 		case "2": //patient manager
 				//CRUDpatient.patientDao();
-				p.patientDao();
+				patient.patientDao();
 				break;
 		
 		case "3": //DRUG manager
 				//CRUDdrug.drugDao();
-				r.drugDao();
+				drug.drugDao();
 				break;
 			
 				
@@ -56,7 +73,7 @@ public class Admin {
 				
 		case "4": //labtest manager
 				//CRUDlabtest.labtestDao();
-				l.labtestDao();
+				labtest.labtestDao();
 				break;
 			
 

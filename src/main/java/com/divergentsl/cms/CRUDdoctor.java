@@ -1,13 +1,16 @@
-package com.divergentsl.clinicmanagementsystem;
+package com.divergentsl.cms;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.divergentsl.clinicmanagementsystem.dao.DoctorDao;
+import com.divergentsl.cms.dao.DoctorDao;
+
+
 
 @Component
 public class CRUDdoctor {
@@ -81,10 +84,10 @@ public class CRUDdoctor {
 		{
 			
 			//DoctorDao doctorDao= new DoctorDao(new DatabaseManager());
-			ResultSet rsretrive= doctorDao.showDoctor();
-			while(rsretrive.next())
+			List<Map<String, Object>> list= doctorDao.showDoctor();
+			for(Map<String, Object> aDoctor : list)
 			{
-				System.out.println(rsretrive.getString(1)+" "+rsretrive.getString(2)+" "+rsretrive.getString(3)+" "+rsretrive.getString(4)+" "+rsretrive.getString(5)+" \n\n");
+				System.out.println(aDoctor);
 			}
 			
 		}

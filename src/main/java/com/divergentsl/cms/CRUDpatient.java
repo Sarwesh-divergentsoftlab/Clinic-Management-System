@@ -1,14 +1,23 @@
-package com.divergentsl.clinicmanagementsystem;
+package com.divergentsl.cms;
 
 import java.sql.ResultSet;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.divergentsl.clinicmanagementsystem.dao.PatientDao;
+import com.divergentsl.cms.dao.PatientDao;
+
+
 
 @Component
 public class CRUDpatient {
+	@Autowired
+	ApplicationContext context ;
+
+	@Autowired
+	PatientDao patientDao;
 	
 	public void patientDao() throws Exception
 	{
@@ -39,7 +48,7 @@ public class CRUDpatient {
 					String app_date=sc.next();
 					System.out.println("enter patient contact number");
 					String contact=sc.next();
-					PatientDao patientDao= new PatientDao(new DatabaseManager());
+				//	PatientDao patientDao= new PatientDao(new DatabaseManager());
 					int r=patientDao.insertPatient(name, patient_age,patient_id, weight, problem, app_date, contact);
 					if(r!=0)System.out.print("information added\n");
 					patientDao();
@@ -47,7 +56,7 @@ public class CRUDpatient {
 			
 			
 			case "2": //retrive patient
-					patientDao= new PatientDao(new DatabaseManager());
+				//	patientDao= new PatientDao(new DatabaseManager());
 					ResultSet rsretrive =patientDao.showPatient();
 					while(rsretrive.next())
 					{
@@ -73,7 +82,7 @@ public class CRUDpatient {
 							
 							System.out.println("enter updated name");
 							String pname=sc.next();
-							patientDao= new PatientDao(new DatabaseManager());
+							//patientDao= new PatientDao(new DatabaseManager());
 							int rowupdatename=patientDao.updateName(pname, id);
 							if(rowupdatename>0) System.out.print("information updated\n");
 							patientDao();
@@ -83,7 +92,7 @@ public class CRUDpatient {
 					
 							System.out.println("enter updated age");
 							String page=sc.next();
-							patientDao= new PatientDao(new DatabaseManager());
+							//patientDao= new PatientDao(new DatabaseManager());
 							int rowupdatespec=patientDao.updateAge(page, id);
 							if(rowupdatespec>0) System.out.print("information updated\n");
 							patientDao();
@@ -93,7 +102,7 @@ public class CRUDpatient {
 							
 							System.out.println("enter updated weight");
 							String pweight=sc.next();
-							patientDao= new PatientDao(new DatabaseManager());
+							//patientDao= new PatientDao(new DatabaseManager());
 							int rowupdatefees=patientDao.updateAge(pweight, id);
 							if(rowupdatefees>0) System.out.print("information updated\n");
 							patientDao();
@@ -103,7 +112,7 @@ public class CRUDpatient {
 							
 							System.out.println("enter new problem");
 							String pproblem=sc.next();
-							patientDao= new PatientDao(new DatabaseManager());
+							//patientDao= new PatientDao(new DatabaseManager());
 							int rowupdatedegree=patientDao.updateProblem(pproblem, id);
 							if(rowupdatedegree>0) System.out.print("information updated\n");
 							patientDao();
@@ -113,7 +122,7 @@ public class CRUDpatient {
 							
 							System.out.println("enter updated Application date");
 							String pdate=sc.next();
-							patientDao= new PatientDao(new DatabaseManager());
+							//patientDao= new PatientDao(new DatabaseManager());
 							int rowupdate=patientDao.updateAppDate(pdate, id);
 							if(rowupdate>0) System.out.print("information updated\n");
 							patientDao();
@@ -123,7 +132,7 @@ public class CRUDpatient {
 							
 							System.out.println("enter updated contact number");
 							String contactc=sc.next();
-							patientDao= new PatientDao(new DatabaseManager());
+							//patientDao= new PatientDao(new DatabaseManager());
 							int rowupdatec=patientDao.updateAppDate(contactc, id);
 							if(rowupdatec>0) System.out.print("information updated\n");
 							patientDao();
@@ -140,7 +149,7 @@ public class CRUDpatient {
 			case "4"://delete patient
 				System.out.println("Enter patient id");
 				String idp=sc.next();
-				patientDao= new PatientDao(new DatabaseManager());
+			//	patientDao= new PatientDao(new DatabaseManager());
 				int i=patientDao.deletePatient(idp);
 				if(i==0) System.out.print("patient not found");
 				else {

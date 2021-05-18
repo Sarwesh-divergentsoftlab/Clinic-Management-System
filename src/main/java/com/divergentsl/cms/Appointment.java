@@ -1,21 +1,36 @@
-package com.divergentsl.clinicmanagementsystem;
+package com.divergentsl.cms;
 
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.divergentsl.clinicmanagementsystem.dao.AppointmentDao;
-import com.divergentsl.clinicmanagementsystem.dao.PatientDao;
+import com.divergentsl.cms.dao.AppointmentDao;
+import com.divergentsl.cms.dao.PatientDao;
+
+
+
+
 @Component
 public class Appointment  {
 	
-	public static void listPatient(String dname)throws SQLException {
+	ApplicationContext context;
+	@Autowired
+	Appointment appoint ;
+	  
+	@Autowired
+	PatientDao patientDao ;
+  
+	@Autowired
+	AppointmentDao appDao;
+	
+	public void listPatient(String dname)throws SQLException {
 
 		Scanner sc= new Scanner (System.in);
-			PatientDao patientDao = new PatientDao(new DatabaseManager());
 			ResultSet rsretrive =patientDao.showPatient();
 			
 			
@@ -27,10 +42,10 @@ public class Appointment  {
 		
 	}
 	
-	public static void assignedAppointment(String dId)throws SQLException
+	public void assignedAppointment(String dId)throws SQLException
 	{
 		Scanner sc= new Scanner (System.in);
-		  	AppointmentDao appDao= new AppointmentDao(new DatabaseManager());
+		  	
 			ResultSet rsretrive =appDao.showAssignedAppointment(dId);
 			
 			
@@ -41,7 +56,7 @@ public class Appointment  {
 			sc.close();
 	}
 	
-	public static void addPrescription() throws SQLException
+	public  void addPrescription() throws SQLException
 	{
 		 
 		Scanner sc = new Scanner(System.in);
@@ -49,7 +64,6 @@ public class Appointment  {
 		String pid=sc.next();
 		System.out.print("type prescription for patient");
 		String pres=sc.next();
-		AppointmentDao appDao= new AppointmentDao(new DatabaseManager());
 		int rowinsert= appDao.addPrescription(pid,pres);
 		
 		if(rowinsert>0)
@@ -59,12 +73,11 @@ public class Appointment  {
 		sc.close();
 	}
 	
-	public static void patientHistory()throws SQLException
+	public  void patientHistory()throws SQLException
 	{
 		Scanner sc= new Scanner (System.in);
 		System.out.print("enter patient id to see full description");
 		String pId=sc.next();
-		AppointmentDao appDao= new AppointmentDao(new DatabaseManager());
 			ResultSet rsretrive =appDao.patHistory(pId);
 			
 			
@@ -75,7 +88,7 @@ public class Appointment  {
 			sc.close();
 	}
 	
-	public static void addAppointment()
+	public  void addAppointment()
 	{
 		try {
 		  
@@ -90,8 +103,7 @@ public class Appointment  {
 		String date=sc.next();
 		System.out.println("enter time");
 		String time=sc.next();
-		
-		AppointmentDao appDao = new AppointmentDao(new DatabaseManager());	
+			
 		int rowinsert= appDao.addAppointment(pid,did,problem,date,time);
 		
 		if(rowinsert>0)
@@ -106,9 +118,8 @@ public class Appointment  {
 		}
 		
 		}
-		public static void generateInvoice()throws SQLException
-		{
-			AppointmentDao appDao = new AppointmentDao(new DatabaseManager()); 
+		public void generateInvoice()throws SQLException
+		{ 
 			ResultSet rsretrive =appDao.invoice();
 			while(rsretrive.next())
 			{

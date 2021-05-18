@@ -1,16 +1,30 @@
-package com.divergentsl.clinicmanagementsystem;
+package com.divergentsl.cms;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
+import com.divergentsl.cms.dao.LoginDao;
 
-import com.divergentsl.clinicmanagementsystem.dao.LoginDao;
+
+
+
 
 
 @Component
 public class LoginAdmin {
-
+	
+	
+	
+	@Autowired
+	LoginDao loginDao;
+	
+	@Autowired
+	Admin admin;
+	
 	public void checkAdmin() throws Exception { 
 
 		try {
@@ -18,28 +32,19 @@ public class LoginAdmin {
 		//	if(c==null)
 		//		System.err.print("c is null");
 			Scanner sc= new Scanner (System.in);
-			
-			
-			LoginDao ado=new LoginDao(new DatabaseManager());
-			ResultSet rs= ado.adminLogin();
+		//	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(JavaConfig.class);
+			//LoginDao loginDao = context.getBean(LoginDao.class);
+			//LoginDao ado=new LoginDao(new DatabaseManager());
 			 
 			System.out.println("Enter your user name: ");  
 		     String user=sc.next(); 
 		    System.out.println("enter password"); 
 		     String pass = sc.next();
-			boolean flag=false;
-			while(rs.next())
+			boolean flag=loginDao.adminLogin(user, pass);
+			if(flag)
 			{
-				String userName=rs.getString(1);		//1st coloumn in database
-				String password = rs.getString(2);		//2nd coloumn in database
-				
-				if(user.equals(userName) && pass.equals(password))
-				{
 					System.out.println("Login successful\n");
-					Admin.adminPanel();
-					flag=true;
-					break;
-				}
+					admin.adminPanel();
 			}
 			if(!flag)
 			{
